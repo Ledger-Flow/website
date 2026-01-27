@@ -1,4 +1,5 @@
 import { MoveRight } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 
 export default function Hero() {
@@ -43,14 +44,17 @@ export default function Hero() {
           </Link>
         </div>
 
-        {/* Hero Image Placeholder */}
-        <div className="border-border bg-muted/50 mt-16 flex aspect-video items-center justify-center overflow-hidden rounded-lg border">
-          <div className="text-center">
-            <div className="mb-4 text-6xl">📊</div>
-            <p className="text-muted-foreground">
-              Business dashboard illustration
-            </p>
-          </div>
+        {/* Hero Image */}
+        <div className="relative mt-16 drop-shadow-2xl">
+          {/* <div className="from-primary/20 via-primary/5 to-background dark:via-primary/10 absolute -inset-4 rotate-x-12 rounded-2xl bg-linear-to-t blur-2xl" /> */}
+          <Image
+            src="/hero-dashboard.png"
+            alt="LedgerFlow - Business Dashboard Interface"
+            width={1200}
+            height={675}
+            className="border-border/50 bg-background/50 relative rounded-xl border shadow-2xl backdrop-blur-sm"
+            priority
+          />
         </div>
       </section>
     </section>
