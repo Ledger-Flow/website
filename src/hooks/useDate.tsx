@@ -12,7 +12,7 @@ const useDate = (interval: number = 1000, freeze: boolean = false) => {
     }, interval);
 
     return () => clearInterval(id);
-  }, []);
+  }, [freeze, interval]);
 
   return time;
 };

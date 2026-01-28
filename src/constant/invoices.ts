@@ -10,9 +10,9 @@ export const mockInvoices: InvoiceData[] = [
     issuedAt: "2024-02-15",
     issuedBy: mockTeamMembers[0],
     taxRate: 7.5,
-    subTotal: 139500,
-    taxAmount: 10500,
-    totalAmount: 150000,
+    subTotal: 1630000,
+    taxAmount: 122250,
+    totalAmount: 1752250,
     items: [
       {
         id: "1",
@@ -20,6 +20,20 @@ export const mockInvoices: InvoiceData[] = [
         quantity: 1,
         unitPrice: 450000,
         amount: 450000,
+      },
+      {
+        id: "2",
+        name: "Laptop Pro 12",
+        quantity: 3,
+        unitPrice: 60000,
+        amount: 180000,
+      },
+      {
+        id: "3",
+        name: "Laptop Pro 13",
+        quantity: 2,
+        unitPrice: 500000,
+        amount: 1000000,
       },
     ],
     note: "Thank you for your business.",

@@ -25,7 +25,7 @@ export const generateSKU = (businessName: string, productName: string) => {
     .join("");
   const productInitial = productName
     .split(" ")
-    .map((word) => word.slice(0, 3))
+    .map((word) => word.slice(0, 2))
     .join("");
 
   return `${businessInitial}-${productInitial}-${createId()}`.toUpperCase();

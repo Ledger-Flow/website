@@ -10,20 +10,71 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { useInventory } from "@/context/inventory-context";
 import { useProfile } from "@/context/profile-context";
+import { Product } from "@/types/inventoy";
 import { InvoiceData } from "@/types/invoice";
 import { formatCurrency, formatDate } from "@/utils/formatter";
 import { generateInvoicePdf } from "@/utils/generator";
 import Link from "next/link";
+import { useMemo, useState } from "react";
+import PreviewAddProduct from "../[id]/components/PreviewAddProduct";
 
 const InvoicePreview = ({ invoice }: { invoice: InvoiceData }) => {
   const { business } = useProfile();
+  const { products } = useInventory();
+
+  const [removeId, setRemoveId] = useState<string[]>([]);
+  const newPrdouct = useMemo(() => {
+    const newItems: Pick<Product, "name" | "unitPrice" | "id">[] = [];
+
+    invoice.items.forEach((item) => {
+      const findProduct = products.find(
+        (product) =>
+          product.name === item.name && product.unitPrice === item.unitPrice,
+      );
+
+      if (!findProduct && !removeId.includes(item.id)) {
+        newItems.push({
+          name: item.name,
+          unitPrice: item.unitPrice,
+          id: item.id,
+        });
+      }
+    });
+
+    return newItems;
+  }, [invoice.items, products, removeId]);
+
+  const closeNewProductModal = (id: string) => {
+    setRemoveId((prev) => [...prev, id]);
+  };
 
   return (
-    <section className="grid grid-cols-1 gap-6 lg:grid-cols-3">
-      {/* Preview */}
-      <main className="lg:col-span-2">
-        <Card>
+    <section className="space-y-6">
+      {/* New Products */}
+      {!!newPrdouct.length && (
+        <>
+          <p className="mb-2 font-semibold">
+            Some Product in this invoice is not in your inventory
+          </p>
+
+          {!!newPrdouct.length && (
+            <main className="grid grid-cols-4 gap-4">
+              {newPrdouct.slice(0, 4).map((item, index) => (
+                <PreviewAddProduct
+                  key={index}
+                  {...item}
+                  close={(arg) => closeNewProductModal(arg)}
+                />
+              ))}
+            </main>
+          )}
+        </>
+      )}
+      <section className="grid grid-cols-1 gap-6 lg:grid-cols-3">
+        {/* Preview */}
+        <Card className="lg:col-span-2">
           <CardHeader>
             <header className="flex items-end justify-between">
               <div>
@@ -146,60 +197,60 @@ const InvoicePreview = ({ invoice }: { invoice: InvoiceData }) => {
             </p>
           </CardContent>
         </Card>
-      </main>
 
-      {/* Summary */}
-      <main>
-        <Card className="lg:sticky lg:top-0">
-          <CardHeader>
-            <CardTitle>Invoice Summary</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <ul className="space-y-3 text-sm">
-              <li className="flex justify-between">
-                <span className="text-muted-foreground">Subtotal</span>
-                <span className="font-semibold">
-                  {formatCurrency(invoice.subTotal)}
-                </span>
-              </li>
-              <li className="flex justify-between">
-                <span className="text-muted-foreground">
-                  VAT ({invoice.taxRate}%)
-                </span>
-                <span className="font-semibold">
-                  {formatCurrency(invoice.taxAmount)}
-                </span>
-              </li>
-              <li className="flex justify-between border-t pt-3 text-lg">
-                <span className="font-bold">Total</span>
-                <span className="text-primary font-bold">
-                  {formatCurrency(invoice.totalAmount)}
-                </span>
-              </li>
-            </ul>
+        {/* Summary */}
+        <main>
+          <Card className="lg:sticky lg:top-0">
+            <CardHeader>
+              <CardTitle>Invoice Summary</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <ul className="space-y-3 text-sm">
+                <li className="flex justify-between">
+                  <span className="text-muted-foreground">Subtotal</span>
+                  <span className="font-semibold">
+                    {formatCurrency(invoice.subTotal)}
+                  </span>
+                </li>
+                <li className="flex justify-between">
+                  <span className="text-muted-foreground">
+                    VAT ({invoice.taxRate}%)
+                  </span>
+                  <span className="font-semibold">
+                    {formatCurrency(invoice.taxAmount)}
+                  </span>
+                </li>
+                <li className="flex justify-between border-t pt-3 text-lg">
+                  <span className="font-bold">Total</span>
+                  <span className="text-primary font-bold">
+                    {formatCurrency(invoice.totalAmount)}
+                  </span>
+                </li>
+              </ul>
 
-            <div className="space-y-2 pt-4">
-              <Button
-                type="button"
-                className="w-full"
-                onClick={() => generateInvoicePdf(invoice, business)}
-              >
-                Download Invoice
-              </Button>
-              <Button
-                type="button"
-                variant="outline"
-                className="w-full bg-transparent"
-                asChild
-              >
-                <Link href={"/dashboard/invoices/create"}>
-                  Create New Invoice
-                </Link>
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
-      </main>
+              <div className="space-y-2 pt-4">
+                <Button
+                  type="button"
+                  className="w-full"
+                  onClick={() => generateInvoicePdf(invoice, business)}
+                >
+                  Download Invoice
+                </Button>
+                <Button
+                  type="button"
+                  variant="outline"
+                  className="w-full bg-transparent"
+                  asChild
+                >
+                  <Link href={"/dashboard/invoices/create"}>
+                    Create New Invoice
+                  </Link>
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </main>
+      </section>
     </section>
   );
 };
