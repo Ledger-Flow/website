@@ -18,7 +18,7 @@ export const mockBusiness: Business = {
   currency: "NGN",
   taxId: "TAX123456789",
   logo: "/icon.png",
-  banner: "",
+  banner: "/banner.png",
   email: "business@example.com",
   phone: "+1234567890",
   state: "Lagos",

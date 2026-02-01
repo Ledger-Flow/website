@@ -155,7 +155,13 @@ const Business = () => {
 
               <div className="bg-background border-border fle relative size-40 shrink-0 items-center justify-center overflow-clip rounded-xl border">
                 {business.logo ? (
-                  <Image alt="logo" src={business.logo} fill sizes="100%" />
+                  <Image
+                    alt="logo"
+                    src={business.logo}
+                    fill
+                    sizes="100%"
+                    className="object-center"
+                  />
                 ) : (
                   <EmptyState
                     className="px-4! md:py-10"
@@ -190,7 +196,13 @@ const Business = () => {
 
               <div className="bg-background border-border relative aspect-4/1 max-h-40 w-auto shrink-0 overflow-clip rounded-xl border">
                 {business.banner ? (
-                  <Image alt="logo" src={business.banner} fill sizes="100%" />
+                  <Image
+                    alt="logo"
+                    src={business.banner}
+                    fill
+                    sizes="100%"
+                    className="object-cover object-center"
+                  />
                 ) : (
                   <EmptyState
                     title="Banner Image"

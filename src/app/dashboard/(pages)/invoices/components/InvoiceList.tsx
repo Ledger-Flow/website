@@ -1,12 +1,15 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { useProfile } from "@/context/profile-context";
 import { InvoiceData } from "@/types/invoice";
 import { formatCurrency, formatDate } from "@/utils/formatter";
+import { generateInvoicePdf } from "@/utils/generator";
 import { Download, Send } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 const InvoiceList = ({ invoices }: { invoices: InvoiceData[] }) => {
   const router = useRouter();
+  const { business } = useProfile();
 
   return (
     <main className="space-y-3">
@@ -42,7 +45,12 @@ const InvoiceList = ({ invoices }: { invoices: InvoiceData[] }) => {
               <Button variant="ghost" size="sm" title="Send">
                 <Send className="size-4" />
               </Button>
-              <Button variant="ghost" size="sm" title="Download">
+              <Button
+                variant="ghost"
+                size="sm"
+                title="Download"
+                onClick={() => generateInvoicePdf(invoice, business)}
+              >
                 <Download className="size-4" />
               </Button>
             </div>

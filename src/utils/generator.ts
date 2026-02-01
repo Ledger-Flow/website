@@ -42,9 +42,12 @@ export const generateInvoicePdf = (
   // The margin is 10 on each side i.e 10 to 20 and mid-point 105
 
   // Add logo
-  // const logo = new Image();
-  // logo.src = "/icon.png";
-  // doc.addImage(logo, "PNG", 10, 10, 40, 40);
+  if (!!business.banner) {
+    const logo = new Image();
+    logo.src = business.banner;
+    doc.addImage(logo, "PNG", 0, 0, 210, 45);
+    y += 25;
+  }
 
   // Add title
   doc.setFontSize(24);
