@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import {
   Card,
   CardContent,
@@ -24,11 +24,13 @@ import { mockTaxData, taxKPI } from "@/data/dashbord";
 export default function TaxPage() {
   const [searchTerm, setSearchTerm] = useState("");
 
-  const filteredTax = mockTaxData.filter(
-    (tax) =>
-      tax.period.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      tax.type.toLowerCase().includes(searchTerm.toLowerCase()),
-  );
+  const filteredTax = useMemo(() => {
+    return mockTaxData.filter(
+      (tax) =>
+        tax.period.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        tax.type.toLowerCase().includes(searchTerm.toLowerCase()),
+    );
+  }, [searchTerm, mockTaxData]);
 
   const getStatusColor = (status: string) => {
     return status === "filed"

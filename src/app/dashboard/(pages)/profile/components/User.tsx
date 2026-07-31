@@ -28,7 +28,7 @@ const User = () => {
     }
 
     if (!isNaN(Number(value))) {
-      const cleanValue = Number.parseInt(value);
+      const cleanValue = Number.parseInt(value, 10);
       profileDispatcher({
         type: "UPDATE_USER",
         payload: { field: "phone", value: cleanValue.toString() },

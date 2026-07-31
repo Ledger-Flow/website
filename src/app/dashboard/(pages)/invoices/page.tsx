@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Card, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -19,11 +19,13 @@ export default function InvoicesPage() {
   const [viewMode, setViewMode] = useState<"table" | "list">("table");
   const [searchTerm, setSearchTerm] = useState("");
 
-  const filteredInvoices = invoices.filter(
-    (invoice) =>
-      invoice.customerName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      invoice.invoiceNumber.toLowerCase().includes(searchTerm.toLowerCase()),
-  );
+  const filteredInvoices = useMemo(() => {
+    return invoices.filter(
+      (invoice) =>
+        invoice.customerName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        invoice.invoiceNumber.toLowerCase().includes(searchTerm.toLowerCase()),
+    );
+  }, [searchTerm, invoices]);
 
   if (fetchingInvoices) {
     return (
