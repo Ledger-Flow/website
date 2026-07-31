@@ -2,17 +2,13 @@
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ProgressProvider } from "@bprogress/next/app";
-import { useContext, createContext } from "react";
+import { useContext, createContext, PropsWithChildren } from "react";
 import { Toaster } from "@/components/ui/sonner";
 
 const queryClient = new QueryClient();
 const Context = createContext<null>(null);
 
-export const GlobalProvider = ({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) => {
+export const GlobalProvider = ({ children }: PropsWithChildren) => {
   return (
     <QueryClientProvider client={queryClient}>
       <ProgressProvider

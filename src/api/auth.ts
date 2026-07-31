@@ -1,13 +1,11 @@
 import { supabaseClient } from "@/lib/supabase/client";
 import { toast } from "sonner";
 
-export const logIn = async ({
-  email,
-  password,
-}: {
+type LoginData = {
   email: string;
   password: string;
-}) => {
+};
+export const logIn = async ({ email, password }: LoginData) => {
   const { data, error } = await supabaseClient.auth.signInWithPassword({
     email,
     password,
@@ -23,19 +21,20 @@ export const logIn = async ({
 };
 
 export type GENDER = "male" | "female" | "others";
+type SignupData = {
+  full_name: string;
+  password: string;
+  email: string;
+  dob: Date;
+  gender: GENDER;
+};
 export const signUp = async ({
   email,
   full_name,
   password,
   dob,
   gender,
-}: {
-  full_name: string;
-  password: string;
-  email: string;
-  dob: Date;
-  gender: GENDER;
-}) => {
+}: SignupData) => {
   const { data, error } = await supabaseClient.auth.signUp({
     email,
     password,

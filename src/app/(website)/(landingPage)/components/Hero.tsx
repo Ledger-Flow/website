@@ -45,13 +45,12 @@ export default function Hero() {
         </div>
 
         {/* Hero Image */}
-        <div className="relative mt-16 drop-shadow-2xl">
-          {/* <div className="from-primary/20 via-primary/5 to-background dark:via-primary/10 absolute -inset-4 rotate-x-12 rounded-2xl bg-linear-to-t blur-2xl" /> */}
+        <div className="relative mt-16 aspect-2880/1552 w-full">
           <Image
             src="/hero-dashboard.png"
             alt="LedgerFlow - Business Dashboard Interface"
-            width={1200}
-            height={675}
+            fill
+            sizes="100%"
             className="border-border/50 bg-background/50 relative rounded-xl border shadow-2xl backdrop-blur-sm"
             priority
           />

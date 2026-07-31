@@ -1,8 +1,6 @@
 "use client";
 
-import type React from "react";
-
-import { useState } from "react";
+import { PropsWithChildren, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import {
@@ -33,11 +31,7 @@ import Image from "next/image";
 import OnboardingPage from "./components/Onboarding";
 import { useProfile } from "@/context/profile-context";
 
-export default function DashboardProvider({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function DashboardProvider({ children }: PropsWithChildren) {
   const [onboarding, setOnboarding] = useState(true);
   const router = useRouter();
   const pathname = usePathname();

@@ -8,7 +8,7 @@ import { calculateTotals } from "@/utils/calculations";
 import { generateId } from "@/utils/generator";
 import {
   createContext,
-  ReactNode,
+  PropsWithChildren,
   useContext,
   useEffect,
   useReducer,
@@ -69,7 +69,7 @@ const initialData: State = {
   },
 };
 
-const InvoiceProvider = ({ children }: Readonly<{ children: ReactNode }>) => {
+const InvoiceProvider = ({ children }: PropsWithChildren) => {
   const [invoices, dispatcher] = useReducer(reducer, initialData);
   const invoiceDispatcher = (action: Action) => dispatcher(action);
   const [fetchingInvoices, toggleFetchingInvoices] = useToggle(true);

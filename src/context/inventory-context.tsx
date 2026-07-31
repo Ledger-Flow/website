@@ -6,7 +6,7 @@ import { Product } from "@/types/inventoy";
 import { generateSKU } from "@/utils/generator";
 import {
   createContext,
-  ReactNode,
+  PropsWithChildren,
   useContext,
   useEffect,
   useReducer,
@@ -39,7 +39,7 @@ type Action =
       payload: { id: string };
     };
 
-const InventoryProvider = ({ children }: { children: ReactNode }) => {
+const InventoryProvider = ({ children }: PropsWithChildren) => {
   const [products, dispatch] = useReducer(reducer, []);
   const inventoryDispatcher = (action: Action) => dispatch(action);
   const [fetchingProducts, toggleFetchingProducts] = useToggle(true);

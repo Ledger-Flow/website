@@ -6,7 +6,7 @@ import { Customer } from "@/types/customer";
 import { InvoiceData } from "@/types/invoice";
 import {
   createContext,
-  ReactNode,
+  PropsWithChildren,
   useContext,
   useEffect,
   useReducer,
@@ -47,7 +47,7 @@ type Action =
       };
     };
 
-const CustomerProvider = ({ children }: Readonly<{ children: ReactNode }>) => {
+const CustomerProvider = ({ children }: PropsWithChildren) => {
   const [customers, dispatcher] = useReducer(reducer, []);
   const customerDispatcher = (action: Action) => dispatcher(action);
   const [fetchingCustomers, toggleFetchingCustomers] = useToggle(true);

@@ -5,7 +5,7 @@ import { useToggle } from "@/hooks/useToggle";
 import { Member, MemberStatus } from "@/types/members";
 import {
   createContext,
-  ReactNode,
+  PropsWithChildren,
   useContext,
   useEffect,
   useReducer,
@@ -30,11 +30,7 @@ const Context = createContext<
   | undefined
 >(undefined);
 
-const TeamProvider = ({
-  children,
-}: Readonly<{
-  children: ReactNode;
-}>) => {
+const TeamProvider = ({ children }: PropsWithChildren) => {
   const [teamMembers, dispatcher] = useReducer(reducer, []);
   const teamDispatcher = (action: Action) => dispatcher(action);
   const [fetchingTeam, toggleFetchingTeam] = useToggle(true);

@@ -116,7 +116,7 @@ const NavBarDropDown = ({ name, dropdown }: NavLink) => {
           <Link
             key={index}
             href={link.href}
-            className="text-foreground hover:bg-muted hover:text-primary block px-4 py-2.5 text-sm"
+            className="text-foreground hover:bg-muted/50 hover:text-primary block px-4 py-2.5 text-sm"
           >
             {link.name}
           </Link>

@@ -3,7 +3,13 @@
 import { mockBusiness, mockUser } from "@/constant/profile";
 import { useToggle } from "@/hooks/useToggle";
 import { Business, User } from "@/types/profile";
-import { createContext, useContext, useEffect, useReducer } from "react";
+import {
+  createContext,
+  PropsWithChildren,
+  useContext,
+  useEffect,
+  useReducer,
+} from "react";
 
 const Context = createContext<
   | ({
@@ -63,9 +69,7 @@ const initialState: { user: User; business: Business } = {
   },
 };
 
-const ProfileProvider = ({
-  children,
-}: Readonly<{ children: React.ReactNode }>) => {
+const ProfileProvider = ({ children }: PropsWithChildren) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const profileDispatcher = (action: Action) => dispatch(action);
   const [fetchingProfile, toggleFetchingProfile] = useToggle(true);
