@@ -131,7 +131,7 @@ body {
 }
 
 @utility wrapper {
-  @apply mx-auto w-full max-w-360 px-5;
+  @apply mx-auto w-full max-w-7xl px-5;
 }
 
 @layer base {
